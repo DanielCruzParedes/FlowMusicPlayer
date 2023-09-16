@@ -43,7 +43,7 @@ public class MusicPlayer {
         } else if (respuestaFC == JFileChooser.APPROVE_OPTION) {
             File[] file = filechooser.getSelectedFiles();
             listaCanciones.addAll(Arrays.asList(file));
-
+           
         }
 
     }

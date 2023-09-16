@@ -41,6 +41,7 @@ public class FlowVisual extends javax.swing.JFrame {
         btnGuardarPlaylist = new javax.swing.JButton();
         btnAbrirPlaylist = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        btnPause = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -145,6 +146,16 @@ public class FlowVisual extends javax.swing.JFrame {
             }
         });
 
+        btnPause.setBackground(new java.awt.Color(0, 204, 51));
+        btnPause.setFont(new java.awt.Font("Franklin Gothic Demi", 0, 18)); // NOI18N
+        btnPause.setForeground(new java.awt.Color(0, 0, 0));
+        btnPause.setText("Pause");
+        btnPause.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPauseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -167,7 +178,9 @@ public class FlowVisual extends javax.swing.JFrame {
                         .addComponent(btnPreviousSong)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPlaySong)
-                        .addGap(78, 78, 78)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPause)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNextSong)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnStop))
@@ -207,7 +220,8 @@ public class FlowVisual extends javax.swing.JFrame {
                     .addComponent(btnNextSong, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPreviousSong, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnStop, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPause, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
 
@@ -259,11 +273,16 @@ public class FlowVisual extends javax.swing.JFrame {
         quitarCancion();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void btnPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPauseActionPerformed
+        mediaplayer.close();
+    }//GEN-LAST:event_btnPauseActionPerformed
+
     File cancionATocar;
 
     //0 es cuando nada se esta tocando, 1 cuando se esta tocando
     static int estadoCancion = 0;
     int cancionSeleccionada=0;
+    
     private void play() {
         if (estadoCancion == 0) {
             try {
@@ -284,8 +303,8 @@ public class FlowVisual extends javax.swing.JFrame {
                 public void run() {
 
                     try {
+                        lblCancion.setText(cancionATocar.getName());
                         mediaplayer.play();
-                        lblCancion.setText(listaCanciones.get(cancionSeleccionada).toString());
                     } catch (Exception e) {
 
                     }
@@ -307,10 +326,11 @@ public class FlowVisual extends javax.swing.JFrame {
 
         try {
             int cancionElegida = listPlaylist.getLeadSelectionIndex();
-            musicplayer.filechooser.remove(cancionElegida);
+            musicplayer.listaCanciones.remove(cancionElegida);
             actualizarLista();
 
         } catch (Exception e) {
+            System.out.println("Algo salio mal eliminando la cancion");
         }
 
     }
@@ -342,8 +362,8 @@ public class FlowVisual extends javax.swing.JFrame {
                 public void run() {
 
                     try {
+                        lblCancion.setText(cancionATocar.getName());
                         mediaplayer.play();
-
                     } catch (Exception e) {
                         System.out.println("Algo salio mal");
                     }
@@ -382,8 +402,8 @@ public class FlowVisual extends javax.swing.JFrame {
                 public void run() {
 
                     try {
+                        lblCancion.setText(cancionATocar.getName());
                         mediaplayer.play();
-
                     } catch (Exception e) {
 
                     }
@@ -462,6 +482,7 @@ public class FlowVisual extends javax.swing.JFrame {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnGuardarPlaylist;
     private javax.swing.JButton btnNextSong;
+    private javax.swing.JButton btnPause;
     private javax.swing.JButton btnPlaySong;
     private javax.swing.JButton btnPreviousSong;
     private javax.swing.JButton btnStop;

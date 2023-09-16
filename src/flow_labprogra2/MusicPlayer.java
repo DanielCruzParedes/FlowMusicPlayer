@@ -64,7 +64,6 @@ public class MusicPlayer {
                 ois = new ObjectInputStream(fis);
                 File tmp;
 
-                // Borra la lista actual antes de cargar una nueva
                 listaCanciones.clear();
 
                 while ((tmp = (File) ois.readObject()) != null) {
@@ -74,7 +73,6 @@ public class MusicPlayer {
                 ois.close();
 
             } catch (EOFException eof) {
-                // Esto es normal cuando se alcanza el final del archivo
                 System.out.println("Fin del archivo.");
             } catch (Exception e) {
                 e.printStackTrace();
